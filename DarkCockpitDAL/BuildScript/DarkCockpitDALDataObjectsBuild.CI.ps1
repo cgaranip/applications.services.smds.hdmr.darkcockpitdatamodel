@@ -45,7 +45,7 @@ If ($isDebug -eq 1)
 CD .\DarkCockpitDAL\packages\Microsoft.EntityFrameworkCore.Tools.2.0.1\tools\net461
 
 
-./ef.exe dbcontext scaffold "Data Source=$DatabaseServerName;Initial Catalog=$DatabaseName;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer --json --output-dir $DatabaseModelFolder --force --verbose --prefix-output --assembly $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockipitDAL.NetFramework.ConsoleApp\bin\Release\DarkCockpitDAL.dll --startup-assembly $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockipitDAL.NetFramework.ConsoleApp\bin\Release\DarkCockpitDAL.NetFramework.ConsoleApp.exe  --project-dir $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockpitDAL\
+./ef.exe dbcontext scaffold "Data Source=$DatabaseServerName;Initial Catalog=$DatabaseName;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer --json --output-dir $DatabaseModelFolder --force --verbose --prefix-output --assembly $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockpitDAL.NetFramework.ConsoleApp\bin\Release\DarkCockpitDAL.dll --startup-assembly $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockpitDAL.NetFramework.ConsoleApp\bin\Release\DarkCockpitDAL.NetFramework.ConsoleApp.exe  --project-dir $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockpitDAL\
 If ($isDebug -eq 1)
 {
     Write-Host "`n------------------------------------------------------------------`n"
