@@ -21,9 +21,6 @@ namespace DarkCockpitDAL.NetFramework.ConsoleApp
             Console.WriteLine("-----------Console DotNet Core!!!------------");
             Console.WriteLine("---------------------------------------------\n");
 
-            Console.WriteLine("First repo based on DbContext Generic Type -> BenzeneNextGenContext ");
-            Console.WriteLine("---------------------------------------------\n");
-
             Console.WriteLine("Register member contract into container.");
             IServiceCollection services = new ServiceCollection();
             services.AddSingleton<ILoggerFactory, LoggerFactory>();

@@ -112,11 +112,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DarkCockpitDAL.Core\DarkCockpitDAL.Core.csproj">
-      <Project>{3A73498D-4F9A-4E8B-A767-8FC2810065AF}</Project>
-      <Name>DarkCockipitDAL.Core</Name>
+      <Project>{3a73498d-4f9a-4e8b-a767-8fc2810065af}</Project>
+      <Name>DarkCockpitDAL.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\DarkCockpitDAL\DarkCockpitDAL.csproj">
-      <Project>{12064905-B703-4FC0-B0D6-933EAD0AAED9}</Project>
+      <Project>{12064905-b703-4fc0-b0d6-933ead0aaed9}</Project>
       <Name>DarkCockpitDAL</Name>
     </ProjectReference>
   </ItemGroup>

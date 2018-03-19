@@ -39,7 +39,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
-        public bool CheckAuthorizeUserByRole(string userName, string roleName, string rootTopicName)
+        public bool CheckAuthorizeUserByRole(string userName, string role, string rootTopic)
         {
             lock (lockObject)
             {
@@ -47,8 +47,8 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                 {
                     var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchAuthorizeUserList);
                     CreateDbParameter(userName, "@UserName", cmd);
-                    CreateDbParameter(rootTopicName, "@RootTopic", cmd);
-                    CreateDbParameter(roleName, "@Role", cmd);
+                    CreateDbParameter(rootTopic, "@RootTopic", cmd);
+                    CreateDbParameter(role, "@Role", cmd);
 
                     var authorizeUser = GetExecuteReaderResults(cmd);
 
@@ -71,7 +71,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
 
 
 
-        public bool CheckAuthorizeUser(string userName, string rootTopicName)
+        public bool CheckAuthorizeUser(string userName, string rootTopic)
         {
             lock (lockObject)
             {
@@ -79,7 +79,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                 {
                     var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchAuthorizeUserList);
                     CreateDbParameter(userName, "@UserName", cmd);
-                    CreateDbParameter(rootTopicName, "@RootTopic", cmd);
+                    CreateDbParameter(rootTopic, "@RootTopic", cmd);
 
                     var authorizeUser = GetExecuteReaderResults(cmd);
 
@@ -104,7 +104,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
 
 
 
-        public string FetchEmailList(string topic, string rootTopicName)
+        public string FetchEmailList(string topic, string rootTopic)
         {
 
             string sendToEmailList = String.Empty;
@@ -113,7 +113,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             {
                 var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchEmailList);
                 CreateDbParameter(topic, "@Topic", cmd);
-                CreateDbParameter(rootTopicName, "@RootTopic", cmd);
+                CreateDbParameter(rootTopic, "@RootTopic", cmd);
 
                 var resultDataTable = GetExecuteReaderResults(cmd);
 
@@ -146,11 +146,11 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
 
 
 
-        public IEnumerable<FlowStrategyDefinitionDTO> GetFlowStrategyDefinition(string rootTopicName)
+        public IEnumerable<FlowStrategyDefinitionDTO> GetFlowStrategyDefinition(string rootTopic)
         {
             var flowStrategyList = new List<FlowStrategyDefinitionDTO>();
 
-            IQueryable<RefFlowStrategyDefinition> refFlowStrategyDefinition = base.GetDbContext().RefFlowStrategyDefinition.Where(p => p.RootTopic == rootTopicName);
+            IQueryable<RefFlowStrategyDefinition> refFlowStrategyDefinition = base.GetDbContext().RefFlowStrategyDefinition.Where(p => p.RootTopic == rootTopic);
 
             var flowStrategyStages = from t0 in refFlowStrategyDefinition
                                      select new FlowStrategyDefinitionDTO()
@@ -172,13 +172,13 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
-        public IEnumerable<string> GetAllTopicList(string rootTopicName, string topicType)
+        public IEnumerable<string> GetAllTopicList(string rootTopic, string topicType)
         {
             var topicList = new List<string>();
 
             try
             {
-                IQueryable<RefFlowStrategyDefinition> refFlowStrategyDefinition = base.GetDbContext().RefFlowStrategyDefinition.Where(p => p.RootTopic == rootTopicName);
+                IQueryable<RefFlowStrategyDefinition> refFlowStrategyDefinition = base.GetDbContext().RefFlowStrategyDefinition.Where(p => p.RootTopic == rootTopic);
                 var Topics = new List<string>();
                 if (topicType == "Both")
                 {
@@ -214,14 +214,14 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
-        public void SaveMqttTrackerLog(string ClientId, string rootTopicName, string clientType, string topic, string message, string createdBy)
+        public void SaveMqttTrackerLog(string ClientId, string rootTopic, string clientType, string topic, string message, string createdBy)
         {
             try
             {
 
                 var cmd = DBStoreProcedureCommand(StoreProcedureName.UspSaveMqttTrackerLog);
                 CreateDbParameter(ClientId, "@ClientId", cmd);
-                CreateDbParameter(rootTopicName, "@RootTopic", cmd);
+                CreateDbParameter(rootTopic, "@RootTopic", cmd);
                 CreateDbParameter(clientType, "@ClientType", cmd);
                 CreateDbParameter(topic, "@Topic", cmd);
                 CreateDbParameter(message, "@Message", cmd);
