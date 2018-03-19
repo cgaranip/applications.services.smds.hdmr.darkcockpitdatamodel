@@ -1,5 +1,5 @@
 ﻿using DarkCockpitDAL.DarkCockpit.Repository;
-using DarkCockpitDAL.Security.Models;
+using DarkCockpitDAL.DarkCockpit.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

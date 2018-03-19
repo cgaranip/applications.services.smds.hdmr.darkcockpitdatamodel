@@ -1,7 +1,7 @@
 ﻿using DarkCockpitDAL.DarkCockpit.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DarkCockpitDAL.Security.Models
+namespace DarkCockpitDAL.DarkCockpit.Models
 {
     public class DarkCockpitContextOptionsBuilder : DarkCockpitContext
     {

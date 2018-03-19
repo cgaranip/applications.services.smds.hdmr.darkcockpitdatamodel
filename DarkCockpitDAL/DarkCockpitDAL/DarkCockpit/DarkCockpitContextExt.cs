@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 
 
-namespace DarkCockpitDAL.Security.Models
+namespace DarkCockpitDAL.DarkCockpit.Models
 {
     public class DarkCockpitContextExt : DarkCockpitContext
     {
