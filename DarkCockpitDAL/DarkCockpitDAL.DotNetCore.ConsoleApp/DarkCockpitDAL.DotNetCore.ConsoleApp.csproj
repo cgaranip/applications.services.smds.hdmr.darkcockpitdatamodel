@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DarkCockipitDAL\DarkCockipitDAL.csproj" />
+    <ProjectReference Include="..\DarkCockpitDAL\DarkCockpitDAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DarkCockipitDAL.Core\DarkCockipitDAL.Core.csproj" />
+    <ProjectReference Include="..\DarkCockpitDAL.Core\DarkCockpitDAL.Core.csproj" />
   </ItemGroup>
 
 </Project>

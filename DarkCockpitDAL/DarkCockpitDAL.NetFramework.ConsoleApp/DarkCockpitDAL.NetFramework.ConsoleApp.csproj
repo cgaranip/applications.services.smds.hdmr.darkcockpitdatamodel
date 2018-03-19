@@ -111,13 +111,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DarkCockipitDAL.Core\DarkCockipitDAL.Core.csproj">
+    <ProjectReference Include="..\DarkCockpitDAL.Core\DarkCockpitDAL.Core.csproj">
       <Project>{3A73498D-4F9A-4E8B-A767-8FC2810065AF}</Project>
-      <Name>MPSDAL.Core</Name>
+      <Name>DarkCockipitDAL.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DarkCockipitDAL\DarkCockipitDAL.csproj">
+    <ProjectReference Include="..\DarkCockpitDAL\DarkCockpitDAL.csproj">
       <Project>{12064905-B703-4FC0-B0D6-933EAD0AAED9}</Project>
-      <Name>MPSDAL</Name>
+      <Name>DarkCockpitDAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
