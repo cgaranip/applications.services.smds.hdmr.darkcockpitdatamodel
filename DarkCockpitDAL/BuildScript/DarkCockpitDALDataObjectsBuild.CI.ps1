@@ -21,7 +21,7 @@ If ($isDebug -eq 1)
 [string] $DatabaseModelFolder = $h.Item("DatabaseModelFolder")
 
 #------------------------------------------------------------------
-# Generate the MPS Database Objects for MPSDAL
+# Generate the DarkCockpit Database Objects for DarkCockpitDAL
 #------------------------------------------------------------------
 
 If ($isDebug -eq 1)
@@ -29,7 +29,7 @@ If ($isDebug -eq 1)
     Write-Host "`n------------------------------------------------------------------`nDeleting the $DatabaseName Data Models`n"
 }
 
-Del $BuildAgentDefaultWorkingDirectory\MPSDAL\MPSDAL\$DatabaseModelFolder\*.*
+Del $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockpitDAL\$DatabaseModelFolder\*.*
 
 If ($isDebug -eq 1)
 {
@@ -42,10 +42,10 @@ If ($isDebug -eq 1)
     Write-Host "`n------------------------------------------------------------------`nRegenerating the Data Models from $DatabaseServerName for $DatabaseName`n"
 }
 
-CD .\MPSDAL\packages\Microsoft.EntityFrameworkCore.Tools.2.0.1\tools\net461
+CD .\DarkCockpitDAL\packages\Microsoft.EntityFrameworkCore.Tools.2.0.1\tools\net461
 
 
-./ef.exe dbcontext scaffold "Data Source=$DatabaseServerName;Initial Catalog=$DatabaseName;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer --json --output-dir $DatabaseModelFolder --force --verbose --prefix-output --assembly $BuildAgentDefaultWorkingDirectory\MPSDAL\MPSDAL.NetFramework.SolverRepositoryConsoleApp\bin\release\MPSDAL.dll --startup-assembly $BuildAgentDefaultWorkingDirectory\MPSDAL\MPSDAL.NetFramework.SolverRepositoryConsoleApp\bin\Release\MPSDAL.NetFramework.SolverRepositoryConsoleApp.exe  --project-dir $BuildAgentDefaultWorkingDirectory\MPSDAL\MPSDAL\
+./ef.exe dbcontext scaffold "Data Source=$DatabaseServerName;Initial Catalog=$DatabaseName;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer --json --output-dir $DatabaseModelFolder --force --verbose --prefix-output --assembly $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockipitDAL.NetFramework.ConsoleApp\bin\Release\DarkCockpitDAL.dll --startup-assembly $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockipitDAL.NetFramework.ConsoleApp\bin\Release\DarkCockpitDAL.NetFramework.ConsoleApp.exe  --project-dir $BuildAgentDefaultWorkingDirectory\DarkCockpitDAL\DarkCockpitDAL\
 If ($isDebug -eq 1)
 {
     Write-Host "`n------------------------------------------------------------------`n"
