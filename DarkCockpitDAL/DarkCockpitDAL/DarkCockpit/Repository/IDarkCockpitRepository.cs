@@ -12,9 +12,11 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
        
         bool CheckAuthorizeUser(string userName, string rootTopicName);
 
-        IEnumerable<string> GetAllTopicList(string rootTopicName, string topicType);
+        IEnumerable<string> GetAllTopicList(int workFlowId, string rootTopicName, string topicType);
 
         IEnumerable<FlowStrategyDefinitionDTO> GetFlowStrategyDefinition(string rootTopicName);
+
+        IEnumerable<WorkFlowDefinitionDTO> GetWorkFlowDefinition(string rootTopic);
 
         void SaveMqttTrackerLog(string ClientId, string rootTopicName, string clientType, string topic, string message, string createdBy);
 

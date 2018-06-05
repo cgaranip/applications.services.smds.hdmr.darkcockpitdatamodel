@@ -6,7 +6,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
     public partial class RefFlowStrategyDefinition
     {
         public int FlowStrategyId { get; set; }
-        public string RootTopic { get; set; }
+        public int WorkFlowId { get; set; }
         public string SubscriptionTopic { get; set; }
         public string PublishTopic { get; set; }
         public string ActionUrl { get; set; }

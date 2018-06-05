@@ -5,7 +5,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
 {
     public partial class RefFlowStrategyTopicRoleEmail
     {
-        public string RootTopic { get; set; }
+        public int WorkFlowId { get; set; }
         public string SubscriptionTopic { get; set; }
         public int RoleId { get; set; }
         public DateTime CreatedOn { get; set; }

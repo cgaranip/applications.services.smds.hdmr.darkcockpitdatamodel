@@ -13,6 +13,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public virtual DbSet<DataMqttTrackerLog> DataMqttTrackerLog { get; set; }
         public virtual DbSet<RefFlowStrategyDefinition> RefFlowStrategyDefinition { get; set; }
         public virtual DbSet<RefFlowStrategyTopicRoleEmail> RefFlowStrategyTopicRoleEmail { get; set; }
+        public virtual DbSet<RefWorkFlowDefinition> RefWorkFlowDefinition { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -164,9 +165,9 @@ namespace DarkCockpitDAL.DarkCockpit.Models
 
             modelBuilder.Entity<RefFlowStrategyDefinition>(entity =>
             {
-                entity.HasKey(e => new { e.RootTopic, e.SubscriptionTopic });
+                entity.HasKey(e => new { e.WorkFlowId, e.SubscriptionTopic });
 
-                entity.Property(e => e.RootTopic).HasMaxLength(50);
+                entity.Property(e => e.WorkFlowId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.SubscriptionTopic).HasMaxLength(250);
 
@@ -201,9 +202,9 @@ namespace DarkCockpitDAL.DarkCockpit.Models
 
             modelBuilder.Entity<RefFlowStrategyTopicRoleEmail>(entity =>
             {
-                entity.HasKey(e => new { e.RootTopic, e.SubscriptionTopic, e.RoleId });
+                entity.HasKey(e => new { e.WorkFlowId, e.SubscriptionTopic, e.RoleId });
 
-                entity.Property(e => e.RootTopic).HasMaxLength(50);
+                entity.Property(e => e.WorkFlowId).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.SubscriptionTopic).HasMaxLength(250);
 
@@ -224,6 +225,17 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RefFlowStrategyTopicRoleEmail_ApplicationRole");
+            });
+
+            modelBuilder.Entity<RefWorkFlowDefinition>(entity =>
+            {
+                entity.HasKey(e => new { e.RootTopic, e.WorkflowName });
+
+                entity.Property(e => e.RootTopic).HasMaxLength(50);
+
+                entity.Property(e => e.WorkflowName).HasMaxLength(250);
+
+                entity.Property(e => e.WorkflowId).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<SchemaMigrations>(entity =>

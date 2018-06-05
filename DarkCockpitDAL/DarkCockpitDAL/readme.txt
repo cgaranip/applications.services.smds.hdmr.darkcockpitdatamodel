@@ -6,4 +6,4 @@ Scaffold-DbContext "Data Source=.;Initial Catalog=SCDev;Integrated Security=SSPI
 
 Below is the text to create FabMps database dbContext
 
-Scaffold-DbContext "Data Source=fmvbnzsqldev30.amr.corp.intel.com,1433;Initial Catalog=BenzeneNextGen;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Mps.Models
+Scaffold-DbContext "Data Source=azsctssqlserver.amr.corp.intel.com,1433;Initial Catalog=DarkCockpit;Integrated Security=SSPI;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DarkCockpit.Models

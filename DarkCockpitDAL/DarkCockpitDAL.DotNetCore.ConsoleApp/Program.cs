@@ -54,11 +54,19 @@ namespace DarkCockpitDAL.DotNetCore.ConsoleApp
             Console.WriteLine("---------------------------------------------\n");
 
 
-            string list = darkCockpitRepo.FetchEmailList("PublishFabPOR", "MPS");
+            string list = darkCockpitRepo.FetchEmailList("1-PublishFabPOR", "MPS");
             Console.WriteLine($"{list}");
             Console.WriteLine("---------------------------------------------\n");
 
-            List<string> topicList = darkCockpitRepo.GetAllTopicList("MPS" , "Publish").ToList();
+            List<string> topicList = darkCockpitRepo.GetAllTopicList(-1, "MPS" , "Publish").ToList();
+            foreach (var topic in topicList)
+            {
+                Console.WriteLine(topic);
+            }
+
+            Console.WriteLine("---------------------------------------------\n");
+
+            topicList = darkCockpitRepo.GetAllTopicList(1, "MPS", "Publish").ToList();
             foreach (var topic in topicList)
             {
                 Console.WriteLine(topic);
