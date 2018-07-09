@@ -39,6 +39,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.RoleDisplayName)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
