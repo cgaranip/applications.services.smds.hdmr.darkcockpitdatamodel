@@ -38,6 +38,10 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .HasMaxLength(250)
                     .IsUnicode(false);
 
+                entity.Property(e => e.RoleDisplayName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.RoleName)
                     .IsRequired()
                     .HasMaxLength(100)
@@ -75,7 +79,9 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .IsUnicode(false)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+                entity.Property(e => e.CreationDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -92,16 +98,24 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.LastLoginDate).HasColumnType("datetime");
+                entity.Property(e => e.LastLoginDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
+
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+                entity.Property(e => e.UserId)
+                    .HasColumnName("UserID")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Wwid).HasColumnName("WWID");
 
@@ -115,6 +129,10 @@ namespace DarkCockpitDAL.DarkCockpit.Models
             modelBuilder.Entity<ApplicationUserRole>(entity =>
             {
                 entity.Property(e => e.ApplicationUserRoleId).HasColumnName("ApplicationUserRoleID");
+
+                entity.Property(e => e.ModifiedDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
 
                 entity.Property(e => e.RoleId).HasColumnName("RoleID");
 
@@ -131,7 +149,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .HasPrincipalKey(p => p.UserId)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_ApplicationUserRole_ApplicationUserRole");
+                    .HasConstraintName("FK_ApplicationUserRole_ApplicationUser");
             });
 
             modelBuilder.Entity<DataMqttTrackerLog>(entity =>

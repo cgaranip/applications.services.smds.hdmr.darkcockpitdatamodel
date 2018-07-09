@@ -8,7 +8,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
     {
         IEnumerable<ApplicationUserDTO> GetApplicationUser();
        
-        bool CheckAuthorizeUserByRole(string userName, string roleName, string rootTopicName);
+        bool CheckAuthorizeUserByRole(string userName, string roleDisplayName, string rootTopicName);
        
         bool CheckAuthorizeUser(string userName, string rootTopicName);
 

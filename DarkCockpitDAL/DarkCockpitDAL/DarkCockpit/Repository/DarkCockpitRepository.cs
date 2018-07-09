@@ -39,7 +39,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
-        public bool CheckAuthorizeUserByRole(string userName, string role, string rootTopic)
+        public bool CheckAuthorizeUserByRole(string userName, string roleDisplayName, string rootTopic)
         {
             lock (lockObject)
             {
@@ -48,7 +48,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                     var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchAuthorizeUserList);
                     CreateDbParameter(userName, "@UserName", cmd);
                     CreateDbParameter(rootTopic, "@RootTopic", cmd);
-                    CreateDbParameter(role, "@Role", cmd);
+                    CreateDbParameter(roleDisplayName, "@RoleDisplayName", cmd);
 
                     var authorizeUser = GetExecuteReaderResults(cmd);
 

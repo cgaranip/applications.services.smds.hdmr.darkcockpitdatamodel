@@ -46,10 +46,14 @@ namespace DarkCockpitDAL.NetFramework.ConsoleApp
             Console.WriteLine($"IsAuthorized : {result}");
             Console.WriteLine("---------------------------------------------\n");
 
-            result = darkCockpitRepo.CheckAuthorizeUserByRole("amr\\jnarayan", "SCTS_DEVELOPER", "MPS");
+
+            result = darkCockpitRepo.CheckAuthorizeUserByRole("jnarayan", "User", "MPS");
             Console.WriteLine($"IsAuthorized : {result}");
             Console.WriteLine("---------------------------------------------\n");
 
+            result = darkCockpitRepo.CheckAuthorizeUserByRole("jnarayan", "Developer", "ATCR");
+            Console.WriteLine($"IsAuthorized : {result}");
+            Console.WriteLine("---------------------------------------------\n");
 
             string list = darkCockpitRepo.FetchEmailList("1-PublishFabPOR", "MPS");
             Console.WriteLine($"{list}");

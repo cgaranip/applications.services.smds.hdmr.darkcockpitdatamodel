@@ -8,6 +8,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public int ApplicationUserRoleId { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public ApplicationRole Role { get; set; }
         public ApplicationUser User { get; set; }

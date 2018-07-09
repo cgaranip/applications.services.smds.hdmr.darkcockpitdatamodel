@@ -15,6 +15,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public string RoleName { get; set; }
         public string RoleDescription { get; set; }
         public string RootTopic { get; set; }
+        public string RoleDisplayName { get; set; }
 
         public ICollection<ApplicationUserRole> ApplicationUserRole { get; set; }
         public ICollection<RefFlowStrategyTopicRoleEmail> RefFlowStrategyTopicRoleEmail { get; set; }

@@ -20,6 +20,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public int StatusId { get; set; }
         public DateTime LastLoginDate { get; set; }
         public DateTime CreationDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
 
         public ApplicationStatusType Status { get; set; }
         public ICollection<ApplicationUserRole> ApplicationUserRole { get; set; }
