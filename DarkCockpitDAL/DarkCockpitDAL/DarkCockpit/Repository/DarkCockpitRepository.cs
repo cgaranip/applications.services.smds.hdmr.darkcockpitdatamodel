@@ -111,8 +111,9 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
 
             try
             {
-                var workFlowId = topic.Split('-')[0];  // extract the workflowid from topic which has workflowid-topicname
-                var topicName = topic.Split('-')[1];  // extract the topic name from topic which has workflowid-topicname
+                var splitTopic = topic.Split('/');
+                var workFlowId = splitTopic[0];  // extract the workflowid from topic which has workflowid-topicname
+                var topicName = splitTopic[1];  // extract the topic name from topic which has workflowid-topicname
 
                 var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchEmailList);
                 CreateDbParameter(workFlowId, "@WorkFlowId", cmd);
@@ -195,8 +196,8 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                                      {
                                          WorkFlowId = t1.WorkflowId,
                                          WorkFlowName = t1.WorkflowName,
-                                         SubscriptionTopic = t1.WorkflowId + "-" + t0.SubscriptionTopic,
-                                         PublishTopic = t1.WorkflowId + "-" + t0.PublishTopic,
+                                         SubscriptionTopic = t1.WorkflowId + "/" + t0.SubscriptionTopic,
+                                         PublishTopic = t1.WorkflowId + "/" + t0.PublishTopic,
                                          ServiceURL = t0.ActionUrl,
                                          SendEmail = t0.SendEmail,
                                          ServiceUrlargsJson = t0.ActionUrlargsJson,
@@ -242,17 +243,17 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                     Topics = (from t1 in refFlowStrategyDefinition
                               select t1.SubscriptionTopic).Union
                                 (from t1 in refFlowStrategyDefinition
-                                 select t1.WorkFlowId + "-" + t1.PublishTopic).ToList();
+                                 select t1.WorkFlowId + "/" + t1.PublishTopic).ToList();
                 }
                 else if (topicType == "Publish")
                 {
                     Topics = (from t1 in refFlowStrategyDefinition
-                              select t1.WorkFlowId + "-" + t1.PublishTopic).ToList();
+                              select t1.WorkFlowId + "/" + t1.PublishTopic).ToList();
                 }
                 else
                 {
                     Topics = (from t1 in refFlowStrategyDefinition
-                              select t1.WorkFlowId + "-" + t1.SubscriptionTopic).ToList();
+                              select t1.WorkFlowId + "/" + t1.SubscriptionTopic).ToList();
                 }
                 foreach (var topicName in Topics.Distinct())
                 {
