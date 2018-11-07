@@ -1,6 +1,7 @@
 ﻿using DarkCockpitDAL.DarkCockpit.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using System;
 
 
@@ -17,7 +18,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
             {
                 if (dbContextOptions.GetType().Name == SqlServerOptionsExtensionName)
                 {
-                    var sqlServerOptionsExtension = dbContextOptions as Microsoft.EntityFrameworkCore.Infrastructure.Internal.SqlServerOptionsExtension;
+                    var sqlServerOptionsExtension = dbContextOptions as SqlServerOptionsExtension;
 
                     if (sqlServerOptionsExtension == null)
                         return;
