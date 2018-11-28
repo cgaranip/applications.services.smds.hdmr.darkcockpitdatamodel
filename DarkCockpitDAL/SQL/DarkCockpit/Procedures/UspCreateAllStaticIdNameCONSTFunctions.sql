@@ -34,8 +34,8 @@ BEGIN
 		)
 		
 		-- Insert any Ref Tables for which constants need to be generated	
-		--INSERT INTO @StaticTables
-		--SELECT 'RefTopics' AS TblName, 'TopicId' AS IdColumn, 'TopicName' AS NameColumn, 1 AS CreateIdConstant, 1 AS CreateNameConstant UNION
+		INSERT INTO @StaticTables
+		SELECT 'RefStatus' AS TblName, 'StatusId' AS IdColumn, 'Status' AS NameColumn, 1 AS CreateIdConstant, 1 AS CreateNameConstant 
 		
 	
 	END

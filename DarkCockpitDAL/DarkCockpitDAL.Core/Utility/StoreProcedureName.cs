@@ -11,6 +11,8 @@ namespace DarkCockpitDAL.Core.Utility
         public static readonly string UspFetchEmailList = "UspFetchEmailList";
         public static readonly string UspFetchAuthorizeUserList = "UspFetchAuthorizeUserList";
         public static readonly string UspSaveMqttTrackerLog = "UspSaveMqttTrackerLog";
+        public static readonly string UspUpdateWorkFlowStatus = "UspUpdateWorkFlowStatus";
+        public static readonly string UspFetchMqttTrackerLog = "UspFetchMqttTrackerLog";
         #endregion
     }
 }

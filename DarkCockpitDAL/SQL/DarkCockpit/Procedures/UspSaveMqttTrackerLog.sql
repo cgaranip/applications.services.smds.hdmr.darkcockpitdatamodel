@@ -13,7 +13,9 @@ GO
 CREATE PROCEDURE  [dbo].[UspSaveMqttTrackerLog]
 	@ClientId NVARCHAR(255), 
 	@RootTopic NVARCHAR(50),
-	@ClientType NVARCHAR(100),
+	@WorkFlowId INT,
+	@RunId INT,
+	@ClientType NVARCHAR(100),	
 	@Topic NVARCHAR(250),
 	@Message NVARCHAR(1000),
 	@CreatedOn DATETIME,
@@ -23,11 +25,13 @@ BEGIN
 	SET NOCOUNT ON
 	
 	/* TEST HARNESS
-	EXEC dbo.UspSaveMqttTrackerLog 'Test', 'MPS', 'Publish' , 'Test', 'Test', '3-14-2018', 'Test'
+	EXEC dbo.UspSaveMqttTrackerLog 'Test', 'MPS',-1,-1, 'Publish' , 'Test', 'Test', '3-14-2018', 'Test'
 	*/
 
 	DECLARE @ClientIdLocal NVARCHAR(255) = @ClientId
 	DECLARE @RootTopicLocal NVARCHAR(50) = @RootTopic
+	DECLARE @WorkFlowIdLocal INT = @WorkFlowId
+	DECLARE @RunIdLocal INT = @Runid
 	DECLARE @ClientTypeLocal NVARCHAR(100) = @ClientType
 	DECLARE @TopicLocal VARCHAR(250) = @Topic
 	DECLARE @MessageLocal VARCHAR(1000) = @Message
@@ -35,7 +39,7 @@ BEGIN
 	DECLARE @CreatedByLocal NVARCHAR(255) = @CreatedBy
 
 	INSERT INTO dbo.DataMqttTrackerLog
-	SELECT @ClientIdLocal, @RootTopicLocal, @ClientTypeLocal, @TopicLocal, @MessageLocal, @CreatedOnLocal, @CreatedByLocal
+	SELECT @ClientIdLocal, @RootTopicLocal, @WorkFlowIdLocal, @RunIdLocal, @ClientTypeLocal, @TopicLocal, @MessageLocal, @CreatedOnLocal, @CreatedByLocal
 
 SET NOCOUNT OFF
 END

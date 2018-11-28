@@ -100,7 +100,35 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             }
         }
 
+        public int UspUpdateWorkFlowStatus(int workFlowId, string rootTopic, string topic, int runId, int statusId, string createdBy)
+        {
+            int returnRunId = 0;
+            try
+            {              
+                var cmd = DBStoreProcedureCommand(StoreProcedureName.UspUpdateWorkFlowStatus);
+                CreateDbParameter(workFlowId, "@WorkFlowId", cmd);
+                CreateDbParameter(rootTopic, "@RootTopic", cmd);
+                CreateDbParameter(topic, "@Topic", cmd);
+                CreateDbParameter(runId, "@RunId", cmd);
+                CreateDbParameter(statusId, "@StatusId", cmd);
+                CreateDbParameter(createdBy, "@CreatedBy", cmd);
 
+                var resultDataTable = GetExecuteReaderResults(cmd);
+
+                returnRunId = int.Parse(resultDataTable.Rows[0].ItemArray[0].ToString());
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception on UspUpdateWorkFlowStatus: " + ex.Message + "." + ex.InnerException);
+            }
+            finally
+            {
+                base.GetDbContext().Database.CloseConnection();
+            }
+
+            return returnRunId;
+        }
 
 
 
@@ -137,6 +165,42 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             }
 
             return sendToEmailList;
+        }
+
+        public string UspFetchMqttTrackerLog(string rootTopic, int workFlowId)
+        {
+            string consolidatedMessage = String.Empty;
+            try
+            {
+                var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchMqttTrackerLog);
+                CreateDbParameter(workFlowId, "@WorkFlowId", cmd);
+                CreateDbParameter(rootTopic, "@RootTopic", cmd);
+
+                var resultDataTable = GetExecuteReaderResults(cmd);
+
+                foreach (DataRow row in resultDataTable.Rows)
+                {
+                    if (string.IsNullOrEmpty(consolidatedMessage))
+                    {
+                        consolidatedMessage = row["CreatedOn"] + "-Topic:" + row["Topic"];
+                    }
+                    else
+                    {
+                        consolidatedMessage = consolidatedMessage + "#" + row["CreatedOn"] + "-Topic:" + row["Topic"];
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception on UspFetchMqttTrackerLog: " + ex.Message + "." + ex.InnerException);
+            }
+            finally
+            {
+                base.GetDbContext().Database.CloseConnection();
+            }
+
+            return consolidatedMessage;
         }
 
         public class WorkFlowDefinitionDTO
@@ -196,8 +260,8 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                                      {
                                          WorkFlowId = t1.WorkflowId,
                                          WorkFlowName = t1.WorkflowName,
-                                         SubscriptionTopic = t1.WorkflowId + "/" + t0.SubscriptionTopic,
-                                         PublishTopic = t1.WorkflowId + "/" + t0.PublishTopic,
+                                         SubscriptionTopic = t1.WorkflowId + "/+/" + t0.SubscriptionTopic,
+                                         PublishTopic = t1.WorkflowId + "/+/" + t0.PublishTopic,
                                          ServiceURL = t0.ActionUrl,
                                          SendEmail = t0.SendEmail,
                                          ServiceUrlargsJson = t0.ActionUrlargsJson,
@@ -243,17 +307,17 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                     Topics = (from t1 in refFlowStrategyDefinition
                               select t1.SubscriptionTopic).Union
                                 (from t1 in refFlowStrategyDefinition
-                                 select t1.WorkFlowId + "/" + t1.PublishTopic).ToList();
+                                 select t1.WorkFlowId + "/+/" + t1.PublishTopic).ToList();
                 }
                 else if (topicType == "Publish")
                 {
                     Topics = (from t1 in refFlowStrategyDefinition
-                              select t1.WorkFlowId + "/" + t1.PublishTopic).ToList();
+                              select t1.WorkFlowId + "/+/" + t1.PublishTopic).ToList();
                 }
                 else
                 {
                     Topics = (from t1 in refFlowStrategyDefinition
-                              select t1.WorkFlowId + "/" + t1.SubscriptionTopic).ToList();
+                              select t1.WorkFlowId + "/+/" + t1.SubscriptionTopic).ToList();
                 }
                 foreach (var topicName in Topics.Distinct())
                 {
@@ -272,14 +336,15 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
-        public void SaveMqttTrackerLog(string ClientId, string rootTopic, string clientType, string topic, string message, string createdBy)
+        public void SaveMqttTrackerLog(string ClientId, string rootTopic, int workFlowId, int runId, string clientType, string topic, string message, string createdBy)
         {
             try
             {
-
                 var cmd = DBStoreProcedureCommand(StoreProcedureName.UspSaveMqttTrackerLog);
                 CreateDbParameter(ClientId, "@ClientId", cmd);
                 CreateDbParameter(rootTopic, "@RootTopic", cmd);
+                CreateDbParameter(workFlowId, "WorkFlowId", cmd);
+                CreateDbParameter(runId, "@RunId", cmd);
                 CreateDbParameter(clientType, "@ClientType", cmd);
                 CreateDbParameter(topic, "@Topic", cmd);
                 CreateDbParameter(message, "@Message", cmd);

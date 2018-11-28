@@ -95,7 +95,7 @@ namespace DarkCockpitDAL.NetFramework.ConsoleApp
             Console.WriteLine("---------------------------------------------\n");
 
 
-            darkCockpitRepo.SaveMqttTrackerLog("Test", "MPS", "Publish", "Test", "Test", "3-14-2018");
+            darkCockpitRepo.SaveMqttTrackerLog("Test", "MPS",-1,-1, "Publish", "Test", "Test", "3-14-2018");
 
 
             Console.WriteLine("---------------------------------------------\n");
