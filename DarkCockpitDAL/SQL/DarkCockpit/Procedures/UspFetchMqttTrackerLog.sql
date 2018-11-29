@@ -30,12 +30,12 @@ BEGIN
 	WHERE WorkFlowId = @WorkFlowIdLocal
     AND RootTopic= @RootTopic		
 	
-	SELECT Topic, CreatedOn
+	SELECT CASE WHEN Topic LIKE '%Exception%' THEN Topic + '-Message:' + Message ELSE Topic END AS TOPIC , CreatedOn
 	FROM dbo.DataMqttTrackerLog
 	WHERE WorkFlowId = @WorkFlowIdLocal
     AND RootTopic= @RootTopic
 	and Runid = @MaxRunId
-	ORDER BY Createdon DESC
+	ORDER BY Createdon ASC
 	
 
 
