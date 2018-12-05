@@ -17,7 +17,7 @@ CREATE PROCEDURE  [dbo].[UspSaveMqttTrackerLog]
 	@RunId INT,
 	@ClientType NVARCHAR(100),	
 	@Topic NVARCHAR(250),
-	@Message NVARCHAR(1000),
+	@Message NVARCHAR(MAX),
 	@CreatedOn DATETIME,
 	@CreatedBy NVARCHAR(255)
 AS
@@ -34,7 +34,7 @@ BEGIN
 	DECLARE @RunIdLocal INT = @Runid
 	DECLARE @ClientTypeLocal NVARCHAR(100) = @ClientType
 	DECLARE @TopicLocal VARCHAR(250) = @Topic
-	DECLARE @MessageLocal VARCHAR(1000) = @Message
+	DECLARE @MessageLocal VARCHAR(MAX) = @Message
 	DECLARE @CreatedOnLocal DATETIME = @CreatedOn
 	DECLARE @CreatedByLocal NVARCHAR(255) = @CreatedBy
 
