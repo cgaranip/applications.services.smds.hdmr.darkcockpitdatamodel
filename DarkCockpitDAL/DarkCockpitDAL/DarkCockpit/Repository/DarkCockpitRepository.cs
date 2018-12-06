@@ -130,6 +130,30 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             return returnRunId;
         }
 
+        public void UspUpdateWorkFlowDetails (int workFlowId, int runId, int versionId, int snapshotId, string modifiedBy)
+        {
+            try
+            {
+                var cmd = DBStoreProcedureCommand(StoreProcedureName.UspUpdateWorkFlowDetails);
+                CreateDbParameter(workFlowId, "@WorkFlowId", cmd);         
+                CreateDbParameter(runId, "@RunId", cmd);
+                CreateDbParameter(versionId, "@VersionId", cmd);
+                CreateDbParameter(snapshotId, "@SnapshotId", cmd);
+                CreateDbParameter(modifiedBy, "@ModifiedBy", cmd);
+
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception on UspUpdateWorkFlowDetails: " + ex.Message + "." + ex.InnerException);
+            }
+            finally
+            {
+                base.GetDbContext().Database.CloseConnection();
+            }
+          
+        }
 
 
         public string FetchEmailList(string topic, string rootTopic)

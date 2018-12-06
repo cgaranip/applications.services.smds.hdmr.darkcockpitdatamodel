@@ -25,6 +25,8 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         int UspUpdateWorkFlowStatus(int workFlowId, string rootTopic, string topic, int runId, int statusId, string createdBy);
 
         string UspFetchMqttTrackerLog(string rootTopic, int workFlowId);
+
+        void UspUpdateWorkFlowDetails(int workFlowId, int runId, int versionId, int snapshotId, string modifiedBy);
     }
 }
 
