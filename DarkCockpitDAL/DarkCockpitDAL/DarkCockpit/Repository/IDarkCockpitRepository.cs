@@ -1,5 +1,6 @@
 ﻿using DarkCockpitDAL.DarkCockpit.DTO;
 using System.Collections.Generic;
+using System.Data;
 using static DarkCockpitDAL.DarkCockpit.Repository.DarkCockpitRepository;
 
 namespace DarkCockpitDAL.DarkCockpit.Repository
@@ -27,6 +28,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         string UspFetchMqttTrackerLog(string rootTopic, int workFlowId);
 
         void UspUpdateWorkFlowDetails(int workFlowId, int runId, int versionId, int snapshotId, string modifiedBy);
+        DataTable UspFetchWorkFlowDetails(int workFlowId, int runId);
     }
 }
 

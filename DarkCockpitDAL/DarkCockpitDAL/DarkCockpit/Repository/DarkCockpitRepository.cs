@@ -130,6 +130,31 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             return returnRunId;
         }
 
+        public DataTable UspFetchWorkFlowDetails (int workFlowId, int runId)
+        {
+            var resultDataTable = new DataTable();
+            try
+            {
+                var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchWorkFlowDetails);
+                CreateDbParameter(workFlowId, "@WorkFlowId", cmd);
+                CreateDbParameter(runId, "@RunId", cmd);             
+
+                resultDataTable = GetExecuteReaderResults(cmd);             
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception on UspFetchWorkFlowDetails: " + ex.Message + "." + ex.InnerException);
+            }
+            finally
+            {
+                base.GetDbContext().Database.CloseConnection();
+            }
+
+            return resultDataTable;
+        }
+
+
         public void UspUpdateWorkFlowDetails (int workFlowId, int runId, int versionId, int snapshotId, string modifiedBy)
         {
             try
