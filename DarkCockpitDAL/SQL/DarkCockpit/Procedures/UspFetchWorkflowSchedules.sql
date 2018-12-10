@@ -27,7 +27,7 @@ BEGIN
 	INNER JOIN [dbo].[RefWorkFlowDefinition] R
 		ON W.WorkflowId = R.WorkflowId
 	WHERE R.RootTopic = @RootTopicLocal
-	
+	AND W.Active = 1
 
 SET NOCOUNT OFF
 END
