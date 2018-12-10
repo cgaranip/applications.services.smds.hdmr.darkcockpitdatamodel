@@ -10,6 +10,7 @@ END
 
 GO
 --Inserts a new status record for a workflow ( if not already running) or updates status of the workflow( if already running) 
+-- This is invoked from DCDAL for DC Web and also from MPSAutonomousDAL for the autonmous services.
 CREATE PROCEDURE  [dbo].[UspUpdateWorkFlowStatus]
 	@WorkFlowId INT,
 	@RootTopic NVARCHAR(50),
