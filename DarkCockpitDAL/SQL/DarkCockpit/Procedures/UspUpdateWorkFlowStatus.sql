@@ -42,7 +42,7 @@ BEGIN
 	DECLARE @AllowInitiateWhileWFInProgress  BIT =0;
 	
 	--Fetch the value of AllowInitiateWhileWFInProgress from [dbo].[RefFlowStrategyDefinition]
-	--this decides if we are able to intiate these topics fir current runId even if WF is running
+	--this decides if we are able to intiate these topics for current runId even if WF is running
 	SELECT @AllowInitiateWhileWFInProgress = AllowInitiateWhileWFInProgress FROM [dbo].[RefFlowStrategyDefinition]
 	WHERE SubscriptionTopic = @TopicLocal
 	AND WorkFlowId = @WorkFlowIdLocal	
@@ -67,7 +67,7 @@ BEGIN
 			END
 			ELSE
 			BEGIN
-				SELECT -1 AS RunId
+				SELECT -1 AS RunId -- indicates that new run cannot be triggered
 			END
 
 		END
