@@ -189,8 +189,9 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             try
             {
                 var splitTopic = topic.Split('/');
-                var workFlowId = splitTopic[0];  // extract the workflowid from topic which has workflowid-topicname
-                var topicName = splitTopic[1];  // extract the topic name from topic which has workflowid-topicname
+                var workFlowId = splitTopic[0];  // extract the workflowid from topic which has workflowid-runid-topicname
+                var runId = splitTopic[1];  // extract the runId from topic
+                var topicName = splitTopic[2];  // extract the topic name from topic which has workflowid-runid-topicname
 
                 var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchEmailList);
                 CreateDbParameter(workFlowId, "@WorkFlowId", cmd);

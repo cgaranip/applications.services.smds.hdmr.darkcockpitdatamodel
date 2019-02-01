@@ -19,10 +19,10 @@ BEGIN
 	SET NOCOUNT ON
 	
 	/* TEST HARNESS
-	EXEC dbo.UspFetchEmailList 1, 'PublishFabPOR', 'MPS'
+	EXEC dbo.UspFetchEmailList 15, 'ExceptionFailedSolveRequestCreation', 'MPS'
 	*/
 	DECLARE @WorkFlowIdLocal INT = @WorkFlowId
-	DECLARE @TopicLocal VARCHAR(30) = @Topic
+	DECLARE @TopicLocal VARCHAR(250) = @Topic
 	DECLARE @RootTopicLocal VARCHAR(10) = @RootTopic
 	
 	SELECT DISTINCT t3.Email 
