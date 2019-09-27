@@ -22,13 +22,13 @@ BEGIN
 	SET NOCOUNT ON
 	
 	/* TEST HARNESS
-	EXEC dbo.UspUpdateWorkFlowDetails 1017, 40744, 2, 1, '{version:1}', 'jnarayan'
+	EXEC dbo.UspUpdateWorkFlowDetails 1, 40747, 2, 1, '{AutoJobWorkFlow:"ExternalHybridRTFReadyMonthly", VersionId:"0", SCLPValue:1, PRFVersionid:57, BatchId:"2019.09.27.02.45.16.jnarayan", Forceload:false}', 'jnarayan'
 	*/
 	DECLARE @WorkFlowIdLocal INT = @WorkFlowId
 	DECLARE @VersionIdLocal INT = @VersionId
 	DECLARE @SnapshotIdLocal INT = @SnapshotId
 	DECLARE @RunIdLocal INT = @RunId
-	DECLARE @PayLoadJSONLocal NVARCHAR(50) = @PayLoadJSON
+	DECLARE @PayLoadJSONLocal NVARCHAR(MAX) = @PayLoadJSON
 	DECLARE @ModifiedByLocal NVARCHAR(50) = @ModifiedBy
 
 	DECLARE @CreatedDate DATETIME = GETUTCDATE()
