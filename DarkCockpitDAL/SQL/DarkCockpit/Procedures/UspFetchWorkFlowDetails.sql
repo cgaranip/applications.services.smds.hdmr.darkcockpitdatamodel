@@ -18,12 +18,12 @@ BEGIN
 	SET NOCOUNT ON
 	
 	/* TEST HARNESS
-	EXEC dbo.UspFetchWorkFlowDetails 86,11
+	EXEC dbo.UspFetchWorkFlowDetails 40744,1017
 	*/
 	DECLARE @RunIdLocal INT = @RunId
 	DECLARE @WorkFlowIdLocal INT = @WorkFlowId
 	
-	SELECT VersionId,SnapshotId
+	SELECT VersionId,SnapshotId, PayLoadJSON
 	FROM dbo.WorkFlowStatus
 	WHERE Runid = @RunIdLocal
 	AND WorkFlowId = @WorkFlowIdLocal

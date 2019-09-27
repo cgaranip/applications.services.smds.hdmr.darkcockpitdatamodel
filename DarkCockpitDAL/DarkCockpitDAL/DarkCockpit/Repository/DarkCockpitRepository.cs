@@ -155,7 +155,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
-        public void UspUpdateWorkFlowDetails (int workFlowId, int runId, int versionId, int snapshotId, string modifiedBy)
+        public void UspUpdateWorkFlowDetails (int workFlowId, int runId, int versionId, int snapshotId, string payLoadJSON, string modifiedBy)
         {
             try
             {
@@ -164,6 +164,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
                 CreateDbParameter(runId, "@RunId", cmd);
                 CreateDbParameter(versionId, "@VersionId", cmd);
                 CreateDbParameter(snapshotId, "@SnapshotId", cmd);
+                CreateDbParameter(payLoadJSON, "@PayLoadJSON", cmd);
                 CreateDbParameter(modifiedBy, "@ModifiedBy", cmd);
 
                 cmd.ExecuteNonQuery();
