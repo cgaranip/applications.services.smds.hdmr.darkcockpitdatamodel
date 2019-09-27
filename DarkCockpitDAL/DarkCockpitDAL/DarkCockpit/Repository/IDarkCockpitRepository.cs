@@ -30,6 +30,8 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         void UspUpdateWorkFlowDetails(int workFlowId, int runId, int versionId, int snapshotId, string payLoadJSON, string modifiedBy);
 
         DataTable UspFetchWorkFlowDetails(int workFlowId, int runId);
+
+        DataTable UspFetchLatestIDPFlowRunId();
     }
 }
 

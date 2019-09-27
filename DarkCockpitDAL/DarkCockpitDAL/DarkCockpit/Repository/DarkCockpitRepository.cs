@@ -155,6 +155,28 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         }
 
 
+        public DataTable UspFetchLatestIDPFlowRunId ()
+        {
+            var resultDataTable = new DataTable();
+            try
+            {
+                var cmd = DBStoreProcedureCommand(StoreProcedureName.UspFetchLatestIDPFlowRunId);
+                resultDataTable = GetExecuteReaderResults(cmd);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Exception on UspFetchLatestIDPFlowRunId: " + ex.Message + "." + ex.InnerException);
+            }
+            finally
+            {
+                base.GetDbContext().Database.CloseConnection();
+            }
+
+            return resultDataTable;
+        }
+
+
         public void UspUpdateWorkFlowDetails (int workFlowId, int runId, int versionId, int snapshotId, string payLoadJSON, string modifiedBy)
         {
             try

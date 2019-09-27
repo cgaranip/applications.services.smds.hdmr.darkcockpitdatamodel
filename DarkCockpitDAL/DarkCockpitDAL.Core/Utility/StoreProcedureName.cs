@@ -15,6 +15,7 @@ namespace DarkCockpitDAL.Core.Utility
         public static readonly string UspFetchWorkFlowDetails = "UspFetchWorkFlowDetails";
         public static readonly string UspUpdateWorkFlowDetails = "UspUpdateWorkFlowDetails";
         public static readonly string UspFetchMqttTrackerLog = "UspFetchMqttTrackerLog";
+        public static readonly string UspFetchLatestIDPFlowRunId = "UspFetchLatestIDPFlowRunId";
         #endregion
     }
 }
