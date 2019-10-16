@@ -35,7 +35,7 @@ BEGIN
 	
 		UPDATE [dbo].[WorkFlowStatus]
 		SET VersionId = @VersionIdLocal,
-			SnapshotId = @SnapshotIdLocal,
+			SnapshotId = CASE WHEN @SnapshotId = -9999 THEN SnapshotId ELSE @SnapshotIdLocal END,
 			PayLoadJSON = @PayLoadJSONLocal,
 			ModifiedOn = @CreatedDate,
 			ModifiedBy = @ModifiedByLocal
