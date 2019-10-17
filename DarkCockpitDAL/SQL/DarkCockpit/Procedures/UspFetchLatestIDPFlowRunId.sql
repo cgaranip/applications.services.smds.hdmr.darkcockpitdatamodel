@@ -29,17 +29,31 @@ BEGIN
 		DECLARE @DataStagingLoadWorkFlowId INT
 		DECLARE @ExternalHybridRTFReadyMonthlyWorkFlowId INT
 		DECLARE @ExternalHybridRTFReadyWeeklyWorkFlowId INT
+		DECLARE @HybridRTFReadyWorkFlowId INT
+		DECLARE @AllInternalRTFReadyWeeklyWorkFlowId INT
+		DECLARE @AllInternalRTFReadyMonthlyWorkFlowId INT
 		DECLARE @StatusRunningId INT
 
-		SELECT @DataStagingLoadWorkFlowId = WorkFlowId FROM RefWorkFlowDefinition WHERE WorkFLowName = 'DataStaging Load'
-		SELECT @ExternalHybridRTFReadyMonthlyWorkFlowId = WorkFlowId FROM RefWorkFlowDefinition WHERE WorkFLowName = 'External Hybrid RTF Ready Monthly'
-	    SELECT @ExternalHybridRTFReadyWeeklyWorkFlowId = WorkFlowId FROM RefWorkFlowDefinition WHERE WorkFLowName = 'External Hybrid RTF Ready Weekly'
+		SELECT @DataStagingLoadWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'DataStaging Load'
+		SELECT @ExternalHybridRTFReadyMonthlyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'External Hybrid RTF Ready Monthly'
+	    SELECT @ExternalHybridRTFReadyWeeklyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'External Hybrid RTF Ready Weekly'
+		SELECT @HybridRTFReadyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'Hybrid RTF Ready'
+		SELECT @AllInternalRTFReadyWeeklyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready Weekly'
+		SELECT @AllInternalRTFReadyMonthlyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready Monthly'
+		
 		SELECT @StatusRunningId = [dbo].[CONST_StatusId_Running]()
 		DECLARE @WorkFlowId INT = -1
 
 		SELECT TOP(1) @WorkFlowId = WorkFlowId
 		FROM dbo.WorkFlowStatus
-		WHERE  WorkFlowId IN(@DataStagingLoadWorkFlowId, @ExternalHybridRTFReadyMonthlyWorkFlowId, @ExternalHybridRTFReadyWeeklyWorkFlowId)
+		WHERE  WorkFlowId IN
+					( @DataStagingLoadWorkFlowId
+					, @ExternalHybridRTFReadyMonthlyWorkFlowId
+					, @ExternalHybridRTFReadyWeeklyWorkFlowId
+					, @HybridRTFReadyWorkFlowId
+					, @AllInternalRTFReadyWeeklyWorkFlowId
+					, @AllInternalRTFReadyMonthlyWorkFlowId
+					)
 		AND StatusId IN (@StatusRunningId)
 		ORDER BY CreatedOn DESC
 		
