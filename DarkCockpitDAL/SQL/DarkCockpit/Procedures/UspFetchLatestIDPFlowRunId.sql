@@ -30,6 +30,7 @@ BEGIN
 		DECLARE @ExternalHybridRTFReadyMonthlyWorkFlowId INT
 		DECLARE @ExternalHybridRTFReadyWeeklyWorkFlowId INT
 		DECLARE @HybridRTFReadyWorkFlowId INT
+		DECLARE @AllInternalRTFReadyWorkFlowId INT
 		DECLARE @AllInternalRTFReadyWeeklyWorkFlowId INT
 		DECLARE @AllInternalRTFReadyMonthlyWorkFlowId INT
 		DECLARE @StatusRunningId INT
@@ -38,6 +39,7 @@ BEGIN
 		SELECT @ExternalHybridRTFReadyMonthlyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'External Hybrid RTF Ready Monthly'
 	    SELECT @ExternalHybridRTFReadyWeeklyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'External Hybrid RTF Ready Weekly'
 		SELECT @HybridRTFReadyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'Hybrid RTF Ready'
+		SELECT @AllInternalRTFReadyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready'
 		SELECT @AllInternalRTFReadyWeeklyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready Weekly'
 		SELECT @AllInternalRTFReadyMonthlyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready Monthly'
 		
@@ -51,6 +53,7 @@ BEGIN
 					, @ExternalHybridRTFReadyMonthlyWorkFlowId
 					, @ExternalHybridRTFReadyWeeklyWorkFlowId
 					, @HybridRTFReadyWorkFlowId
+					, @AllInternalRTFReadyWorkFlowId
 					, @AllInternalRTFReadyWeeklyWorkFlowId
 					, @AllInternalRTFReadyMonthlyWorkFlowId
 					)
