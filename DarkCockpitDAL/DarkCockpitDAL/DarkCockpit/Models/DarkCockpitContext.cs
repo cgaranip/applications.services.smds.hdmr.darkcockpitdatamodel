@@ -6,6 +6,15 @@ namespace DarkCockpitDAL.DarkCockpit.Models
 {
     public partial class DarkCockpitContext : DbContext
     {
+        public DarkCockpitContext()
+        {
+        }
+
+        public DarkCockpitContext(DbContextOptions<DarkCockpitContext> options)
+            : base(options)
+        {
+        }
+
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
         public virtual DbSet<ApplicationStatusType> ApplicationStatusType { get; set; }
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
@@ -13,15 +22,18 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public virtual DbSet<DataMqttTrackerLog> DataMqttTrackerLog { get; set; }
         public virtual DbSet<RefFlowStrategyDefinition> RefFlowStrategyDefinition { get; set; }
         public virtual DbSet<RefFlowStrategyTopicRoleEmail> RefFlowStrategyTopicRoleEmail { get; set; }
+        public virtual DbSet<RefStatus> RefStatus { get; set; }
         public virtual DbSet<RefWorkFlowDefinition> RefWorkFlowDefinition { get; set; }
         public virtual DbSet<SchemaMigrations> SchemaMigrations { get; set; }
+        public virtual DbSet<WorkflowScheduleDefiniton> WorkflowScheduleDefiniton { get; set; }
+        public virtual DbSet<WorkFlowStatus> WorkFlowStatus { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(@"Data Source=AZSCTSsqlserver.amr.corp.intel.com;Initial Catalog=DarkCockpit;Integrated Security=SSPI;");
+                optionsBuilder.UseSqlServer("Data Source=SCLab-02.amr.corp.intel.com;Initial Catalog=DarkCockpit;Integrated Security=SSPI;");
             }
         }
 
@@ -171,15 +183,17 @@ namespace DarkCockpitDAL.DarkCockpit.Models
 
                 entity.Property(e => e.CreatedOn).HasColumnType("datetime");
 
-                entity.Property(e => e.Message)
-                    .IsRequired()
-                    .HasMaxLength(1000);
+                entity.Property(e => e.Message).IsRequired();
 
                 entity.Property(e => e.RootTopic)
                     .IsRequired()
                     .HasMaxLength(50);
 
+                entity.Property(e => e.RunId).HasDefaultValueSql("((-1))");
+
                 entity.Property(e => e.Topic).HasMaxLength(250);
+
+                entity.Property(e => e.WorkFlowId).HasDefaultValueSql("((-1))");
             });
 
             modelBuilder.Entity<RefFlowStrategyDefinition>(entity =>
@@ -197,6 +211,8 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                 entity.Property(e => e.ActionUrlargsJson)
                     .HasColumnName("ActionURLArgsJSON")
                     .HasMaxLength(1000);
+
+                entity.Property(e => e.AllowInitiateWhileWfinProgress).HasColumnName("AllowInitiateWhileWFInProgress");
 
                 entity.Property(e => e.CreatedBy)
                     .IsRequired()
@@ -246,6 +262,31 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .HasConstraintName("FK_RefFlowStrategyTopicRoleEmail_ApplicationRole");
             });
 
+            modelBuilder.Entity<RefStatus>(entity =>
+            {
+                entity.HasKey(e => e.StatusId);
+
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("('system')");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StatusCategory)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<RefWorkFlowDefinition>(entity =>
             {
                 entity.HasKey(e => new { e.RootTopic, e.WorkflowName });
@@ -253,6 +294,10 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                 entity.Property(e => e.RootTopic).HasMaxLength(50);
 
                 entity.Property(e => e.WorkflowName).HasMaxLength(250);
+
+                entity.Property(e => e.IsActive)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.WorkflowId).ValueGeneratedOnAdd();
             });
@@ -265,6 +310,50 @@ namespace DarkCockpitDAL.DarkCockpit.Models
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<WorkflowScheduleDefiniton>(entity =>
+            {
+                entity.HasKey(e => e.WorkflowId);
+
+                entity.Property(e => e.WorkflowId).ValueGeneratedNever();
+
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.CronSchedule)
+                    .IsRequired()
+                    .HasMaxLength(2000);
+
+                entity.Property(e => e.PublishTopic)
+                    .IsRequired()
+                    .HasMaxLength(250);
+            });
+
+            modelBuilder.Entity<WorkFlowStatus>(entity =>
+            {
+                entity.HasKey(e => e.RunId);
+
+                entity.Property(e => e.CreatedBy)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasDefaultValueSql("(N'system')");
+
+                entity.Property(e => e.CreatedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
+
+                entity.Property(e => e.ModifiedBy)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasDefaultValueSql("(N'system')");
+
+                entity.Property(e => e.ModifiedOn)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getutcdate())");
+
+                entity.Property(e => e.PayLoadJson).HasColumnName("PayLoadJSON");
             });
         }
     }

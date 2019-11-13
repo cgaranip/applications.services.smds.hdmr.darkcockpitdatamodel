@@ -8,6 +8,8 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public int MqttTrackerId { get; set; }
         public string ClientId { get; set; }
         public string RootTopic { get; set; }
+        public int WorkFlowId { get; set; }
+        public int RunId { get; set; }
         public string ClientType { get; set; }
         public string Topic { get; set; }
         public string Message { get; set; }

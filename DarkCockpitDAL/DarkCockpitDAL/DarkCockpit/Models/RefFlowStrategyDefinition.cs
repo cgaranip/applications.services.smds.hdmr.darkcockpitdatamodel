@@ -13,6 +13,7 @@ namespace DarkCockpitDAL.DarkCockpit.Models
         public string ActionUrlargsJson { get; set; }
         public bool SendEmail { get; set; }
         public string StrategyDefinitionClass { get; set; }
+        public bool AllowInitiateWhileWfinProgress { get; set; }
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
     }

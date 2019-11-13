@@ -286,7 +286,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         {
             var workFlowDefinitionList = new List<WorkFlowDefinitionDTO>();
 
-            IQueryable<RefWorkFlowDefinition> refWorkFlowDefinition = base.GetDbContext().RefWorkFlowDefinition.Where(p => p.RootTopic == rootTopic);
+            IQueryable<RefWorkFlowDefinition> refWorkFlowDefinition = base.GetDbContext().RefWorkFlowDefinition.Where(p => p.RootTopic == rootTopic && p.IsActive == true);
 
 
             var workFlowDefinitions = from t0 in refWorkFlowDefinition                               
@@ -324,7 +324,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
             var flowStrategyList = new List<FlowStrategyDefinitionDTO>();
 
             IQueryable<RefFlowStrategyDefinition> refFlowStrategyDefinition = base.GetDbContext().RefFlowStrategyDefinition;
-            IQueryable<RefWorkFlowDefinition> refWorkFlowDefinition = base.GetDbContext().RefWorkFlowDefinition.Where(p => p.RootTopic == rootTopic);
+            IQueryable<RefWorkFlowDefinition> refWorkFlowDefinition = base.GetDbContext().RefWorkFlowDefinition.Where(p => p.RootTopic == rootTopic && p.IsActive == true);
 
 
             var flowStrategyStages = from t0 in refFlowStrategyDefinition
@@ -354,7 +354,7 @@ namespace DarkCockpitDAL.DarkCockpit.Repository
         {
             var topicList = new List<string>();
             IQueryable<RefFlowStrategyDefinition> refFlowStrategyDefinition = base.GetDbContext().RefFlowStrategyDefinition;
-            IQueryable<RefWorkFlowDefinition> refWorkFlowDefinition = base.GetDbContext().RefWorkFlowDefinition.Where(p => p.RootTopic == rootTopic);
+            IQueryable<RefWorkFlowDefinition> refWorkFlowDefinition = base.GetDbContext().RefWorkFlowDefinition.Where(p => p.RootTopic == rootTopic && p.IsActive == true);
 
 
             try
