@@ -33,6 +33,7 @@ BEGIN
 		DECLARE @AllInternalRTFReadyWorkFlowId INT
 		DECLARE @AllInternalRTFReadyWeeklyWorkFlowId INT
 		DECLARE @AllInternalRTFReadyMonthlyWorkFlowId INT
+		DECLARE @PRFVersionSetupWorkFlowId INT
 		DECLARE @StatusRunningId INT
 
 		SELECT @DataStagingLoadWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'DataStaging Load'
@@ -42,7 +43,8 @@ BEGIN
 		SELECT @AllInternalRTFReadyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready'
 		SELECT @AllInternalRTFReadyWeeklyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready Weekly'
 		SELECT @AllInternalRTFReadyMonthlyWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'All Internal RTF Ready Monthly'
-		
+		SELECT @PRFVersionSetupWorkFlowId = WorkFlowId FROM dbo.RefWorkFlowDefinition (NOLOCK) WHERE WorkFlowName = 'PRF Version Setup'
+
 		SELECT @StatusRunningId = [dbo].[CONST_StatusId_Running]()
 		DECLARE @WorkFlowId INT = -1
 
@@ -56,6 +58,7 @@ BEGIN
 					, @AllInternalRTFReadyWorkFlowId
 					, @AllInternalRTFReadyWeeklyWorkFlowId
 					, @AllInternalRTFReadyMonthlyWorkFlowId
+					, @PRFVersionSetupWorkFlowId
 					)
 		AND StatusId IN (@StatusRunningId)
 		ORDER BY CreatedOn DESC
