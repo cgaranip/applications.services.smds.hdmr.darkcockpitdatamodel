@@ -12,7 +12,7 @@ namespace DarkCockpitDAL.DotNetCore.ConsoleApp
 {
     class Program
     {
-        private static string connString_DarkCockpitContext = @"Data Source=sclab-02.amr.corp.intel.com;Database=DarkCockpit;Trusted_Connection=True;";
+        private static string connString_DarkCockpitContext = @"Data Source=OneMPSSqlDev.intel.com;Database=DarkCockpit;Trusted_Connection=True;";
         public static IServiceProvider Container { get; private set; }
 
         static void Main(string[] args)
@@ -21,7 +21,7 @@ namespace DarkCockpitDAL.DotNetCore.ConsoleApp
             Console.WriteLine("-----------Console DotNet Core!!!------------");
             Console.WriteLine("---------------------------------------------\n");
 
-            Console.WriteLine("First repo based on DbContext Generic Type -> BenzeneNextGenContext ");
+            Console.WriteLine("First repo based on DbContext Generic Type -> DarkCockpitContext ");
             Console.WriteLine("---------------------------------------------\n");
 
             Console.WriteLine("Register member contract into container.");
