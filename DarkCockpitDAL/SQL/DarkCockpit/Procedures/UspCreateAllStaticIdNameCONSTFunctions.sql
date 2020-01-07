@@ -42,7 +42,7 @@ BEGIN
 
 	-- Cursor for Looping StaticTables and get TableName, Id & Name Column
 	BEGIN
-		DECLARE @Debug BIT = 0
+		DECLARE @Debug BIT = 1
 		DECLARE @TblName VARCHAR(100)
 		DECLARE @IdColumn VARCHAR(100)
 		DECLARE @NameColumn VARCHAR(100)

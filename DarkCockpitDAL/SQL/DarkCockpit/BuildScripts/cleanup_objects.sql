@@ -92,4 +92,37 @@ END
 
 CLOSE c
 DEALLOCATE c
+------------------------------------
+---------- DROP CONSTANTS----------
+------------------------------------
+
+DECLARE @name varchar(255)
+DECLARE @s varchar(max)
+SET @s = ' '
+
+DECLARE c CURSOR FOR
+SELECT name FROM sys.objects WHERE schema_id = SCHEMA_ID('dbo') AND name like 'CONST_%'
+
+OPEN c
+FETCH NEXT FROM c
+INTO @name
+
+WHILE @@FETCH_STATUS = 0
+
+BEGIN	
+
+	SET @s = 'DROP FUNCTION [' + @name + ']'
+
+	print 'Trying to ' + @s
+	EXEC(@s)
+
+	
+	FETCH NEXT FROM c
+	INTO @name
+
+END
+
+CLOSE c
+DEALLOCATE c
+GO
 GO
