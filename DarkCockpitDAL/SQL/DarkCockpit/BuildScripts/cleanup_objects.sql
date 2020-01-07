@@ -71,7 +71,7 @@ DECLARE @s varchar(max)
 SET @s = ' '
 
 DECLARE c CURSOR FOR
-SELECT name FROM sys.objects WHERE name like 'ufn_%'
+SELECT name FROM sys.objects WHERE name like 'fn_%'
 
 OPEN c
 FETCH NEXT FROM c
