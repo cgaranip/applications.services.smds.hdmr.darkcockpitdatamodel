@@ -7,7 +7,7 @@ DECLARE @s varchar(max)
 SET @s = ' '
 
 DECLARE c CURSOR FOR
-SELECT name FROM sys.views WHERE name like 'v_%'
+SELECT name FROM sys.views WHERE schema_id = SCHEMA_ID('dbo') AND name like 'v_%'
 
 OPEN c
 FETCH NEXT FROM c
@@ -19,7 +19,8 @@ BEGIN
 
 	SET @s = 'DROP VIEW [' + @name + ']'
 
-  EXEC(@s)
+	print 'Trying to ' + @s
+	EXEC(@s)
 
 	FETCH NEXT FROM c
 	INTO @name
@@ -39,7 +40,7 @@ DECLARE @s varchar(max)
 SET @s = ' '
 
 DECLARE c CURSOR FOR
-SELECT name FROM sys.procedures WHERE name like 'usp_%'
+SELECT name FROM sys.procedures WHERE schema_id = SCHEMA_ID('dbo') AND name like 'usp_%'
 
 OPEN c
 FETCH NEXT FROM c
@@ -51,6 +52,7 @@ BEGIN
 
 	SET @s = 'DROP PROCEDURE [' + @name + ']'
 
+	print 'Trying to ' + @s
 	EXEC(@s)
 
 	FETCH NEXT FROM c
@@ -71,7 +73,7 @@ DECLARE @s varchar(max)
 SET @s = ' '
 
 DECLARE c CURSOR FOR
-SELECT name FROM sys.objects WHERE name like 'fn_%'
+SELECT name FROM sys.objects WHERE schema_id = SCHEMA_ID('dbo') AND name like 'fn_%'
 
 OPEN c
 FETCH NEXT FROM c
@@ -83,6 +85,7 @@ BEGIN
 
 	SET @s = 'DROP FUNCTION [' + @name + ']'
 
+	print 'Trying to ' + @s
 	EXEC(@s)
 
 	FETCH NEXT FROM c
@@ -127,4 +130,4 @@ END
 CLOSE c
 DEALLOCATE c
 GO
-GO
+
