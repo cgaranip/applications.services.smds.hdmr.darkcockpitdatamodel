@@ -22,7 +22,7 @@ BEGIN
 	DECLARE @RootTopicLocal NVARCHAR(50) = @RootTopic
 	
     SELECT R.WorkFlowId, R.WorkflowName, [CronSchedule]
-      ,[PublishTopic], MessagePayload
+      ,[PublishTopic], ISNULL(MessagePayload, '') AS MessagePayload, ISNULL(W.TimeZoneInfo, '') AS TimeZoneInfo
 	FROM [DarkCockpit].[dbo].[WorkflowScheduleDefiniton] W
 	INNER JOIN [dbo].[RefWorkFlowDefinition] R
 		ON W.WorkflowId = R.WorkflowId
