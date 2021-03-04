@@ -6,7 +6,7 @@ INSERT INTO [dbo].[RefFlowStrategyDefinition](WorkFlowId, SubscriptionTopic, Pub
 SELECT T.WorkFlowId, T.SubscriptionTopic, T.PublishTopic, T.ActionURL, T.ActionURLArgsJSON, T.SendEmail, T.StrategyDefinitionClass, T.AllowInitiateWhileWFInProgress
 FROM
 (
-	SELECT @WorkFlowId AS WorkFlowId, 'FullAutoPOR' AS SubscriptonTopic, 'ResetAutoFlowStatus' AS PublishTopic, '/AutoPORPostPRFSolve' AS ActionURL, NULL AS ActionURLArgsJSON, 0 AS SendEmail, 'DarkCockpitWebAPIMain.FlowStrategy.MPS.Solve.AutoPRFSolvePOR' AS StrategyDefinitionClass, 0 AS AllowInitiateWhileWFInProgress
+	SELECT @WorkFlowId AS WorkFlowId, 'FullAutoPOR' AS SubscriptionTopic, 'ResetAutoFlowStatus' AS PublishTopic, '/AutoPORPostPRFSolve' AS ActionURL, NULL AS ActionURLArgsJSON, 0 AS SendEmail, 'DarkCockpitWebAPIMain.FlowStrategy.MPS.Solve.AutoPRFSolvePOR' AS StrategyDefinitionClass, 0 AS AllowInitiateWhileWFInProgress
 	UNION
 	SELECT @WorkFlowId AS WorkFlowId, 'PartialAutoPOR' AS SubscriptionTopic, 'AutoUnConstraintException' AS PublishTopic, '/AutoPORPostPRFSolve' AS ActionURL, NULL AS ActionURLArgsJSON, 0 AS SendEmail, 'DarkCockpitWebAPIMain.FlowStrategy.MPS.Solve.AutoPRFSolvePOR' AS StrategyDefinitionClass, 0 AS AllowInitiateWhileWFInProgress
 ) T
