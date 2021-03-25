@@ -12,7 +12,7 @@ namespace DarkCockpitDAL.NetFramework.ConsoleApp
 {
     class Program
     {
-        private static string connString_DarkCockpitContext = @"Data Source=azsctssqlserver.amr.corp.intel.com;Database=DarkCockpit;Trusted_Connection=True;";
+        private static string connString_DarkCockpitContext = @"Data Source=onempssqldev.intel.com;Database=DarkCockpit;Trusted_Connection=True;";
         public static IServiceProvider Container { get; private set; }
 
         static void Main(string[] args)
